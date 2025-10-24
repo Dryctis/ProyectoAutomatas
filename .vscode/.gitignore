@@ -1,0 +1,22 @@
+Ignorar el entorno virtual de Python
+
+.venv/
+venv/
+*.venv/
+
+Ignorar los archivos de caché de Python
+
+pycache/
+*.pyc
+
+Ignorar archivos de configuración de VSCode
+
+.vscode/
+
+Opcional: Ignorar la tabla guardada por el usuario,
+
+para que cada quien tenga la suya.
+
+Si quieres que la 'tabla.json' SÍ se suba, borra la línea de abajo.
+
+tabla.json
