@@ -91,7 +91,7 @@ class App(ctk.CTk):
 
         self.grid_columnconfigure(0, weight=1)
         
-     
+   
         self.grid_rowconfigure(0, weight=0) 
         self.grid_rowconfigure(1, weight=0) 
         self.grid_rowconfigure(2, weight=1) 
@@ -120,12 +120,18 @@ class App(ctk.CTk):
                                       command=self.abrir_editor_tabla)
         self.edit_btn.grid(row=0, column=1, padx=5)
 
+       
+        self.diagrama_btn = ctk.CTkButton(self.button_frame, text="Ver Diagrama",
+                                          fg_color="transparent", border_width=2,
+                                          command=self.mostrar_diagrama_gui)
+        self.diagrama_btn.grid(row=0, column=2, padx=5) 
+
     
         self.resultado_textbox = ctk.CTkTextbox(self, state="disabled", font=("Consolas", 13))
         
-      
+    
         self.resultado_textbox.grid(row=2, column=0, padx=20, pady=(10, 20), sticky="nsew")
-       
+        
         
     def abrir_editor_tabla(self):
         if self.editor_window is None or not self.editor_window.winfo_exists():
@@ -160,6 +166,22 @@ class App(ctk.CTk):
         self.resultado_textbox.delete("1.0", "end")
         self.resultado_textbox.insert("1.0", "¡Éxito! Nueva tabla guardada y recargada.\n")
         self.resultado_textbox.configure(state="disabled")
+
+    def mostrar_diagrama_gui(self):
+        if not self.fsm_instance:
+            messagebox.showerror("Error", "El autómata no está cargado correctamente.")
+            return
+        
+        print("Generando diagrama...")
+      
+        exito, mensaje = self.fsm_instance.generar_y_abrir_diagrama()
+        
+        if exito:
+            messagebox.showinfo("Diagrama Generado", mensaje)
+        else:
+          
+            messagebox.showerror("Error de Graphviz", mensaje)
+ 
 
     def procesar_cadena_gui(self):
         if not self.fsm_instance:
